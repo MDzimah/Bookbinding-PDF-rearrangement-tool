@@ -1,2 +1,2 @@
-# Sebastian-Math-t-book-binding-video-tutorial-tool
-This is a guide on how to achieve the printing ordered necessary for the book binding explained in Sebastian Mathôt book binding tutorial video.
+# Book binding printing configuration tool
+IF you want a cheap & easy way to professionaly bind a book in a paper-back style, this is the go to [video](https://www.youtube.com/watch?v=cifj5UYQDZE&list=WL&index=16) made by Sebastian Mathôt. 
