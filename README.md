@@ -1,21 +1,21 @@
-# Bookbinding PDF rearrangement tool
-If you want a cheap & easy way to professionaly bind a book in a paperback style, this is the go to [video](https://www.youtube.com/watch?v=cifj5UYQDZE&list=WL&index=16) made by [Sebastiaan Mathôt](https://www.youtube.com/c/SebastiaanMath%C3%B4t). In fact, I bound my first book following the video's instructions & couldn't be happier with the results. I would strongly recommend watching the video before reading what comes next, it will give well needed context.
+# Bookbinding PDF Rearrangement Tool
+If you want a cheap and easy way to bind a book in paperback style, check out this [video](https://www.youtube.com/watch?v=cifj5UYQDZE&list=WL&index=16) by [Sebastiaan Mathôt](https://www.youtube.com/c/SebastiaanMath%C3%B4t). I bound my first book following his instructions and couldn’t be happier. I recommend watching the video first for context.
 
 ## Rearranging the PDF
-This [C++ program](Code.cpp) outputs a series of numbers and, at the end, the number of pages you are going to need to do the printing. The series of numbers represent the way in which you have to rearrange the PDF's pages for the next section. Each line of the series (every 4 numbers) represents one page (front & back). The code of the program includes some instructions on how to use it. 
+This [C++ program](Code.cpp) outputs a series of numbers and, at the end, the number of pages needed for printing. The numbers show how to rearrange the PDF pages. Each line of four numbers represents one sheet (front and back). The code includes usage instructions.  
 
-Tip: give ChatGPT your book PDF and the series of numbers outputted by the program. Then give it this prompt: "give me a new PDF rearranged according to the series of numbers. If the word 'blank' appears in the series, it represents an empty page".
+Tip: give ChatGPT your book PDF and the program’s output. Then use this prompt:  
+*"Create a new PDF rearranged according to these numbers. If the word 'blank' appears, it means an empty page—include it as an extra page in the new PDF."*
 
 ## Printing
-Before anything, make sure your printer allows for duplex printing or printing double sided. If not, you will have to do the duplexing manually. 
+First, make sure your printer supports duplex (double-sided) printing. If not, you’ll need to flip pages manually.  
 
-To print the book, open the PDF on your preferred PDF viewer (Google's default one worked fine for me) and press the print icon. Then, select the configurations below on the printing interface:
+To print: open the PDF in your viewer (Google’s default works fine), press print, and select:  
+- Two pages per sheet  
+- Duplex (both sides)  
+- Flip on short edge  
 
-- Horizontal printing
-- Duplex printing (print on both side)
-- Flip on XXXXXX
-- Two pages per page
+Each sheet will hold 4 book pages (2 front, 2 back). Remove fully blank sheets after cutting.  
 
-Every sheet of paper will have 4 pages of your book, 2 pages at the front & another 2 at the back.
-
-Before printing the real thing, run a test. Make a paginated document (using Word, Google docs, etc.) of 4 pages. For the first page write a "1", for the second page write a "3", for the third page write a "4" and for the fourth page write a "2". After printing, cut the stack of papers lengthwise in half and put the left side on top of the right side as shown in the video tutorial. If you get a 4 page book, you are ready to print your PDF book.
+Before printing the real book, do a test:  
+Make a 4-page document with numbers: Page 1 → "1", Page 2 → "3", Page 3 → "4", Page 4 → "2". Print with the settings above, cut the stack lengthwise, then place the left half on top of the right as shown in the video. If you get a proper 4-page booklet, you’re ready to print your book.
