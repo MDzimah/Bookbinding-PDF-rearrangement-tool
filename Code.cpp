@@ -1,70 +1,79 @@
 #include <iostream>
-using llci = long long const int;
+#include <vector>
 using lli = long long int;
 
-/*-------DESCRIPTION OF THE PROGRAM, READ THIS BEFORE USE-------*/
-/*
-THIS PROGRAM GIVES THE NECESSARY PAGE LAYOUT OF THE PDF TO ACHIEVE
-THE DESIRED PRINTING ORDER SHOWED IN THE VIDEO. 
+/*---------------------------------------------------------------
+ PDF Bookbinding Layout Generator
+ ---------------------------------------------------------------
+ This program calculates the necessary page layout for your PDF
+ so you can print and bind it as shown in the video tutorial.
 
-THIS PROGRAM CAN BE COPIED & PASTED ON ANY C++ COMPILER ONLINE. 
-JUST LOOK FOR "C++ COMPILER" ON YOUR WEB BROWSER & CLICK ON THE 
-FIRST LINK.
+ How to use:
+ 1. Copy and paste this code into any online C++ compiler.
+    (Search "C++ compiler" in your web browser and open the first result.)
+ 2. In the PARAMETERS section below, set TOTAL_PAGES to the number
+    of pages in your PDF.
+ 3. Run the program to get the rearranged page order and the total
+    number of sheets needed for printing.
+ ---------------------------------------------------------------*/
 
-IN THE "PARAMETERS" SECTION BELOW SUBSTITUTE THE NUMERIC NUMBER BY 
-THE NUMBER OF PAGES OF YOUR PDF.
-*/
-
-/*------PARAMETERS------*/
-llci NUMBER_OF_PAGES = 115;
+ /*---------------- PARAMETERS ----------------*/
+const lli TOTAL_PAGES = 100; // <--- CHANGE THIS TO YOUR PDF PAGE COUNT
 
 
-/*------MAIN CODE------*/
+/*---------------- MAIN CODE ----------------*/
 int main() {
-	if (NUMBER_OF_PAGES < 1) {
-		std::cout << "ERROR: THE NUMBER OF PAGES HAS TO BE GREATER THAN 1\n";
-		return 0;
-	}
+    if (TOTAL_PAGES < 1) {
+        std::cout << "ERROR: The number of pages must be greater than 0\n";
+        return 0;
+    }
+    if (TOTAL_PAGES == 1) {
+        std::cout << "1, blank, blank, blank\n\nSheets needed for printing: 1\n";
+        return 0;
+    }
 
-	lli np = 0;
-	lli i = 1;
+    std::vector<std::vector<lli>> result;
 
-	if (NUMBER_OF_PAGES > 3) {
-		lli LIMIT = (NUMBER_OF_PAGES - NUMBER_OF_PAGES % 4) / 2;
-		while (i <= LIMIT) {
-			std::cout << i << ", " << NUMBER_OF_PAGES / 2 + i << ", " << NUMBER_OF_PAGES / 2 + i + 1 << ", " << i + 1 << ", \n";
-			i += 2;
-			++np;
-		}
+    //Calculate required rows (4 pages per sheet)
+    lli rows;
+    if (TOTAL_PAGES % 4 == 0) rows = TOTAL_PAGES;
+    else rows = TOTAL_PAGES - TOTAL_PAGES % 4 + 4;
+    rows /= 4;
 
-		switch (NUMBER_OF_PAGES % 4) {
-		case 3:
-			std::cout << i << ", " << NUMBER_OF_PAGES - 1 << ", " << NUMBER_OF_PAGES << ", blank\n";
-			++np;
-			break;
-		case 2:
-			std::cout << i << ", " << NUMBER_OF_PAGES << ", blank, blank\n";
-			++np;
-			break;
-		case 1:
-			std::cout << "blank, " << NUMBER_OF_PAGES << ", blank, blank\n";
-			++np;
-			break;
-		default: break;
-		}
-	}
-	else {
-		if (NUMBER_OF_PAGES == 3) std::cout << "1, 3, blank, 2\n";
-		else {
-			for (int i = 1; i <= NUMBER_OF_PAGES; ++i) {
-				std::cout << i << ", ";
-			}
-			std::cout << "blank, blank\n";
-		}
-		++np;
-	}
+    lli n = 1;
+    lli mid = rows * 2;
 
-	std::cout << "\nNUMBER OF PAGES NEEDED FOR PRINTING: " << np << '\n';
-	
-	return 0;
+    for (lli f = 0; f < rows; ++f) {
+        result.push_back(std::vector<lli>(4));
+
+        result[f][0] = n;
+
+        if (mid + n < TOTAL_PAGES) {
+            result[f][1] = mid + n;
+            result[f][2] = mid + n + 1;
+        }
+        else if (mid + n == TOTAL_PAGES) {
+            result[f][1] = mid + n;
+            result[f][2] = -1;
+        }
+        else result[f][1] = result[f][2] = -1;
+
+        result[f][3] = n + 1;
+
+        n += 2;
+    }
+
+    //Output page order
+    for (lli f = 0; f < result.size(); ++f) {
+        for (lli c = 0; c < 4; ++c) {
+            if (result[f][c] == -1) std::cout << "blank";
+            else std::cout << result[f][c];
+
+            if (!(f == result.size() - 1 && c == 3)) std::cout << ", ";
+        }
+        std::cout << '\n';
+    }
+
+    std::cout << "\nSheets needed for printing: " << rows << '\n';
+    return 0;
 }
