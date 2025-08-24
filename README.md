@@ -96,7 +96,7 @@ First, make sure your printer supports duplex (double-sided) printing. If not, y
 
 To print: open the PDF in your viewer (Google’s default works fine), press print, and select:  
 - Two pages per sheet  
-- Duplex (both sides)  
+- Print on both sides (duplex printing)  
 - Flip on short edge  
 
 Each sheet will hold 4 book pages (2 front, 2 back). Remove fully blank sheets after cutting.  
