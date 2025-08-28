@@ -6,7 +6,6 @@ The C++ code below outputs a series of numbers and, at the end, the sheets of pa
 
 ```cpp
 #include <iostream>
-#include <vector>
 using lli = long long int;
 
 /*---------------------------------------------------------------
@@ -39,8 +38,6 @@ int main() {
         return 0;
     }
 
-    std::vector<std::vector<lli>> result;
-
     //Calculate required rows (4 pages per sheet)
     lli rows;
     if (TOTAL_PAGES % 4 == 0) rows = TOTAL_PAGES;
@@ -50,37 +47,20 @@ int main() {
     lli n = 1;
     lli mid = rows * 2;
 
-    for (lli f = 0; f < rows; ++f) {
-        result.push_back(std::vector<lli>(4));
-
-        result[f][0] = n;
-
-        if (mid + n < TOTAL_PAGES) {
-            result[f][1] = mid + n;
-            result[f][2] = mid + n + 1;
-        }
-        else if (mid + n == TOTAL_PAGES) {
-            result[f][1] = mid + n;
-            result[f][2] = -1;
-        }
-        else {
-            result[f][1] = result[f][2] = -1;
-        }
-
-        result[f][3] = n + 1;
-
-        n += 2;
-    }
-
     //Output page order
-    for (lli f = 0; f < result.size(); ++f) {
-        for (lli c = 0; c < 4; ++c) {
-            if (result[f][c] == -1) std::cout << "blank";
-            else std::cout << result[f][c];
+    for (lli f = 0; f < rows; ++f) {
+        std::cout << n << ", ";
 
-            if (!(f == result.size() - 1 && c == 3)) std::cout << ", ";
-        }
+        if (mid + n < TOTAL_PAGES) std::cout << mid + n << ", " << mid + n + 1;
+        else if (mid + n == TOTAL_PAGES) std::cout << mid + n << ", " << "blank";
+        else std::cout << "blank, blank";
+
+        std::cout << ", " << n + 1;
+
+        if (f != rows - 1) std::cout << ',';
         std::cout << '\n';
+        
+        n += 2;
     }
 
     std::cout << "\nSheets needed for printing: " << rows << '\n';
